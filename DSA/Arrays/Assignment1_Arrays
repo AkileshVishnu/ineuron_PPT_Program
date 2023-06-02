@@ -1,3 +1,179 @@
+Question1:
 
-skkss,
+def twoSum(nums, target):
+    num_indices = []
+    for i in range(len(nums)):
+        comp = target - nums[i]
+        if comp in num_indices:
+            # If the complement exists in the num_indices array, return its index and the current index
+            return [num_indices.index(comp), i]
+        # Add the current number to the num_indices array
+        num_indices.append(nums[i])
+    # If no solution then return an empty array
+    return []
 
+nums = [2, 7, 11, 15]
+target = 9
+result = twoSum(nums, target)
+print(result) 
+
+
+--------------------------------------------------------------------------------------------------------------------
+Question:2
+
+def removeElement(nums, val):
+    k = 0  # Counter for the number of elements not equal to val
+
+    for i in range(len(nums)):
+        if nums[i] != val:
+            k += 1
+
+    return k
+
+nums = [3, 2, 2, 3]
+val = 3
+k = removeElement(nums, val)
+print(k)
+
+--------------------------------------------------------------------------------------------------------------------
+Question:3
+
+
+def searchInsert(nums, target):
+    left = 0
+    right = len(nums) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+
+    return left
+
+nums = [1, 3, 5, 6]
+target = 5
+index = searchInsert(nums, target)
+print(index)
+
+--------------------------------------------------------------------------------------------------------------------
+Question:4
+
+
+def plusOne(digits):
+    carry = 1  # Initialize the carry to 1, since we want to increment the number
+
+    for i in range(len(digits) - 1, -1, -1):
+        sum = digits[i] + carry  # Add the current digit and the carry
+
+        if sum == 10:
+            digits[i] = 0  # Set the current digit to 0
+            carry = 1  # Set the carry to 1 for the next iteration
+        else:
+            digits[i] = sum  # Update the current digit
+            carry = 0  # Reset the carry to 0 since no more increment is needed
+
+    if carry == 1:
+        digits.insert(0, 1)  # Insert 1 at the beginning of the digits array if there's still a carry
+
+    return digits
+
+digits = [1, 2, 3]
+result = plusOne(digits)
+print(result) 
+
+
+
+--------------------------------------------------------------------------------------------------------------------
+Question:5
+
+def merge(nums1, m, nums2, n):
+    # Start merging from the end of the merged array
+    idx = m + n - 1
+    i = m - 1  # Index for nums1
+    j = n - 1  # Index for nums2
+
+    while i >= 0 and j >= 0:
+        if nums1[i] >= nums2[j]:
+            nums1[idx] = nums1[i]
+            i -= 1
+        else:
+            nums1[idx] = nums2[j]
+            j -= 1
+        idx -= 1
+
+    # If there are remaining elements in nums2, copy them to nums1
+    while j >= 0:
+        nums1[idx] = nums2[j]
+        j -= 1
+        idx -= 1
+
+    # Note that nums1 is modified in-place, so there's no need to return it
+
+nums1 = [1, 2, 3, 0, 0, 0]
+m = 3
+nums2 = [2, 5, 6]
+n = 3
+merge(nums1, m, nums2, n)
+print(nums1) 
+
+
+--------------------------------------------------------------------------------------------------------------------
+Question:6
+
+def containsDuplicate(nums):
+    num_set = set()
+
+    for num in nums:
+        if num in num_set:
+            return True
+        num_set.add(num)
+
+    return False
+
+nums = [1, 2, 3, 1]
+result = containsDuplicate(nums)
+print(result)
+
+--------------------------------------------------------------------------------------------------------------------
+Question:7
+
+def moveZeroes(nums):
+    zero_count = 0  # Count the number of zeros encountered
+
+    for i in range(len(nums)):
+        if nums[i] == 0:
+            zero_count += 1
+        else:
+            # Shift the non-zero element to the left by the number of zeros encountered
+            nums[i - zero_count] = nums[i]
+
+    # Fill the remaining elements at the end of the array with zeros
+    for i in range(len(nums) - zero_count, len(nums)):
+        nums[i] = 0
+
+
+nums = [0, 1, 0, 3, 12]
+moveZeroes(nums)
+print(nums) 
+
+
+--------------------------------------------------------------------------------------------------------------------
+Question:8
+
+
+def findErrorNums(nums):
+    n = len(nums)
+    nums_set = set(nums)  # Convert the array to a set to find the duplicate element
+    duplicate = sum(nums) - sum(nums_set)  # Calculate the duplicate by subtracting the sum of the set from the sum of the array
+    missing = duplicate - (n * (n + 1) // 2)  # Calculate the missing number by subtracting the expected sum of 1 to n from the sum of the array
+
+    return [duplicate, missing]
+
+nums = [1, 2, 2, 4]
+result = findErrorNums(nums)
+print(result)
