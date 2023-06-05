@@ -1,1 +1,26 @@
+Question:1
+
+Move Zeroes
+Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+
+
+(Sol)
+
+def rev(nums):
+  out = []
+  zero_lst = []
+  for i in nums:
+    if i==0:
+      zero_lst.append(i)
+    else:
+      out.append(i)
+  out.extend(zero_lst)
+  return out
+
+print(rev([0,1,0,3,12]))
+
+
+==================================================================================================
+
+Question:2
 
