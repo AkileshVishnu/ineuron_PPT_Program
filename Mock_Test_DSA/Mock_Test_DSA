@@ -24,3 +24,30 @@ print(rev([0,1,0,3,12]))
 
 Question:2
 
+First Unique Character in a String
+
+Given a string s, find the first non-repeating character in it and return its index. If it does not exist, return -1.
+
+Example 1:
+Input: s = "leetcode"
+Output: 0
+
+Example 2:
+Input: s = "loveleetcode"
+Output: 2
+
+
+
+(sol)
+def uniq_index(s):
+  for i in range(len(s)):
+    flag = True
+    for j in range(len(s)):
+      if i!=j and s[i]==s[j]:
+        flag = False
+        break
+    if flag:    
+      return i
+  return -1
+
+uniq_index("leetcode")
