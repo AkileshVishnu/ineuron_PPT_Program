@@ -4,51 +4,26 @@ Implementation in Python
 Question1:
 
 
-def findCommonElements(arr1, arr2, arr3):
-    result = []
-    i, j, k = 0, 0, 0
+def find_permutation(s):
+    n = len(s)
+    perm = []
+    low, high = 0, n
 
-    while i < len(arr1) and j < len(arr2) and k < len(arr3):
-        if arr1[i] == arr2[j] == arr3[k]:
-            result.append(arr1[i])
-            i += 1
-            j += 1
-            k += 1
-        elif arr1[i] < arr2[j]:
-            i += 1
-        elif arr2[j] < arr3[k]:
-            j += 1
+    for char in s:
+        if char == 'I':
+            perm.append(low)
+            low += 1
         else:
-            k += 1
+            perm.append(high)
+            high -= 1
 
-    return result
+    perm.append(low)
 
-# Test the function
-arr1 = [1, 2, 3, 4, 5]
-arr2 = [1, 2, 5, 7, 9]
-arr3 = [1, 3, 4, 5, 8]
-commonElements = findCommonElements(arr1, arr2, arr3)
-print(commonElements)
+    return perm
 
 ----------------------------------------------------------------------------------------------------------------------------------
 
 Question2:
-
-
-def findDisjoint(nums1, nums2):
-    set1 = set(nums1)
-    set2 = set(nums2)
-
-    distinct_nums1 = list(set1 - set2)
-    distinct_nums2 = list(set2 - set1)
-
-    return [distinct_nums1, distinct_nums2]
-
-# Test the function
-nums1 = [1, 2, 3]
-nums2 = [2, 4, 6]
-result = findDisjoint(nums1, nums2)
-print(result)
 
 
 ----------------------------------------------------------------------------------------------------------------------------------
@@ -58,44 +33,64 @@ Question3:
 
 
 
-
 ----------------------------------------------------------------------------------------------------------------------------------
 
 Question4:
 
 
+def find_max_length(nums):
+    count = 0
+    max_length = 0
+    count_map = {0: -1}  # Initialize with an initial count of 0 at index -1
 
-def arrayPairSum(nums):
-    nums.sort()
-    max_sum = 0
-    for i in range(0, len(nums), 2):
-        max_sum += nums[i]
-    return max_sum
+    for i, num in enumerate(nums):
+        count += 1 if num == 1 else -1
 
-# Test the function
-nums = [1, 4, 3, 2]
-maximized_sum = arrayPairSum(nums)
-print(maximized_sum)
+        if count in count_map:
+            max_length = max(max_length, i - count_map[count])
+        else:
+            count_map[count] = i
+
+    return max_length
 
 ----------------------------------------------------------------------------------------------------------------------------------
 
 Question5:
 
+def min_product_sum(nums1, nums2):
+    nums1.sort()
+    nums2.sort(reverse=True)
+
+    product_sum = 0
+    n = len(nums1)
+
+    for i in range(n):
+        product_sum += nums1[i] * nums2[i]
+
+    return product_sum
 
 ----------------------------------------------------------------------------------------------------------------------------------
 
 Question6:
 
 
-def sortedSquares(nums):
-    squared_nums = [num * num for num in nums]
-    squared_nums.sort()
-    return squared_nums
+def find_original_array(changed):
+    count_map = {}
+    original = []
 
-# Test the function
-nums = [-4, -1, 0, 3, 10]
-result = sortedSquares(nums)
-print(result)
+    for num in changed:
+        original_num = num // 2
+
+        if original_num in count_map and count_map[original_num] > 0:
+            count_map[original_num] -= 1
+            original.append(original_num)
+        else:
+            return []
+
+        count_map[num] = count_map.get(num, 0) + 1
+
+    return original
+
 
 ----------------------------------------------------------------------------------------------------------------------------------
 
@@ -107,17 +102,6 @@ Question7:
 Question8:
 
 
-def shuffle(nums, n):
-    result = []
-    for i in range(n):
-        result.append(nums[i])
-        result.append(nums[i + n])
-    return result
 
-# Test the function
-nums = [2, 5, 1, 3, 4, 7]
-n = 3
-result = shuffle(nums, n)
-print(result)
 
 ----------------------------------------------------------------------------------------------------------------------------------
