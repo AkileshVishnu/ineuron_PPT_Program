@@ -1,1 +1,177 @@
 
+Implementation in Python
+
+Question1:
+def minimum_delete_sum(s1, s2):
+    m, n = len(s1), len(s2)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+
+    for i in range(m - 1, -1, -1):
+        dp[i][n] = dp[i+1][n] + ord(s1[i])
+
+    for j in range(n - 1, -1, -1):
+        dp[m][j] = dp[m][j+1] + ord(s2[j])
+
+    for i in range(m - 1, -1, -1):
+        for j in range(n - 1, -1, -1):
+            if s1[i] == s2[j]:
+                dp[i][j] = dp[i+1][j+1]
+            else:
+                dp[i][j] = min(dp[i+1][j] + ord(s1[i]), dp[i][j+1] + ord(s2[j]))
+
+    return dp[0][0]
+
+# Example usage
+s1 = "sea"
+s2 = "eat"
+print(minimum_delete_sum(s1, s2))
+
+
+=========================================================================================================================================
+
+Question2:
+
+def check_valid_string(s):
+    stack = []
+    wildcard_stack = []
+
+    for char in s:
+        if char == '(':
+            stack.append(char)
+        elif char == '*':
+            wildcard_stack.append(char)
+        elif char == ')':
+            if stack:
+                stack.pop()
+            elif wildcard_stack:
+                wildcard_stack.pop()
+            else:
+                return False
+
+    while stack and wildcard_stack:
+        if stack[-1] > wildcard_stack[-1]:
+            return False
+        stack.pop()
+        wildcard_stack.pop()
+
+    return len(stack) == 0
+
+# Example usage
+s = "()"
+print(check_valid_string(s)) 
+
+=========================================================================================================================================
+
+Question3:
+
+def min_distance(word1, word2):
+    m, n = len(word1), len(word2)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+
+    for i in range(1, m + 1):
+        dp[i][0] = i
+
+    for j in range(1, n + 1):
+        dp[0][j] = j
+
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if word1[i-1] == word2[j-1]:
+                dp[i][j] = dp[i-1][j-1]
+            else:
+                dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + 1
+
+    return dp[m][n]
+
+# Example usage
+word1 = "sea"
+word2 = "eat"
+print(min_distance(word1, word2))
+
+=========================================================================================================================================
+
+Question4:
+
+
+=========================================================================================================================================
+
+Question5:
+
+def compress(chars):
+    n = len(chars)
+    write_index = 0
+    count = 1
+
+    for i in range(1, n+1):
+        if i < n and chars[i] == chars[i-1]:
+            count += 1
+        else:
+            chars[write_index] = chars[i-1]
+            write_index += 1
+
+            if count > 1:
+                count_str = str(count)
+                for j in range(len(count_str)):
+                    chars[write_index] = count_str[j]
+                    write_index += 1
+
+            count = 1
+
+    return write_index
+
+# Example usage
+chars = ["a","a","b","b","c","c","c"]
+new_length = compress(chars)
+
+=========================================================================================================================================
+
+
+Question6:
+
+
+
+=========================================================================================================================================
+
+Question7:
+def findMissingRanges(nums, lower, upper):
+    ranges = []
+    prev = lower - 1  # Initialize prev to a number smaller than lower
+
+    for num in nums + [upper + 1]:  # Append upper + 1 to include the upper bound
+        if num - prev > 1:
+            ranges.append(formatRange(prev + 1, num - 1))
+        prev = num
+
+    return ranges
+
+def formatRange(lower, upper):
+    if lower == upper:
+        return str(lower)
+    else:
+        return str(lower) + "->" + str(upper)
+
+# Example usage
+nums = [0, 1, 3, 50, 75]
+lower = 0
+upper = 99
+result = findMissingRanges(nums, lower, upper)
+print(result)
+
+=========================================================================================================================================
+
+Question8:
+
+def canAttendMeetings(intervals):
+    intervals.sort(key=lambda x: x[0])  # Sort intervals based on start time
+
+    for i in range(1, len(intervals)):
+        if intervals[i][0] < intervals[i-1][1]:
+            return False  # Overlapping intervals found
+
+    return True  # No overlapping intervals found
+
+# Example usage
+intervals = [[0, 30], [5, 10], [15, 20]]
+result = canAttendMeetings(intervals)
+print(result)
+
