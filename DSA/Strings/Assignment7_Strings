@@ -1,1 +1,161 @@
 
+Implementation in Python
+
+Question1:
+
+def is_isomorphic(s, t):
+    if len(s) != len(t):
+        return False
+    
+    char_map = {}  # Dictionary to store character mappings
+    
+    for i in range(len(s)):
+        if s[i] in char_map:
+            if char_map[s[i]] != t[i]:
+                return False
+        else:
+            if t[i] in char_map.values():
+                return False
+            char_map[s[i]] = t[i]
+    
+    return True
+
+# Example usage
+s = "egg"
+t = "add"
+print(is_isomorphic(s, t)) 
+
+=========================================================================================================================================
+
+Question2:
+
+def is_strobogrammatic(num):
+    strob_map = {
+        '0': '0',
+        '1': '1',
+        '6': '9',
+        '8': '8',
+        '9': '6'
+    }
+    
+    strob_num = ""
+    
+    for digit in num:
+        if digit not in strob_map:
+            return False
+        strob_num = strob_map[digit] + strob_num
+    
+    return strob_num == num
+
+# Example usage
+num = "69"
+print(is_strobogrammatic(num))
+
+=========================================================================================================================================
+
+Question3:
+
+def add_strings(num1, num2):
+    i = len(num1) - 1
+    j = len(num2) - 1
+    carry = 0
+    result = []
+    
+    while i >= 0 or j >= 0 or carry > 0:
+        n1 = int(num1[i]) if i >= 0 else 0
+        n2 = int(num2[j]) if j >= 0 else 0
+        curr_sum = n1 + n2 + carry
+        carry = curr_sum // 10
+        digit = curr_sum % 10
+        result.append(str(digit))
+        
+        i -= 1
+        j -= 1
+    
+    return ''.join(result[::-1])
+
+# Example usage
+num1 = "11"
+num2 = "123"
+print(add_strings(num1, num2)) 
+
+=========================================================================================================================================
+
+Question4:
+
+def reverse_words(s):
+    words = s.split()  # Split the sentence into words
+    reversed_words = [word[::-1] for word in words]  # Reverse each word
+    return ' '.join(reversed_words)  # Join the reversed words with whitespace
+
+# Example usage
+s = "Let's take LeetCode contest"
+print(reverse_words(s)) 
+
+=========================================================================================================================================
+
+Question5:
+
+def reverse_string(s, k):
+    # Convert the string into a list to make it mutable
+    s_list = list(s)
+    n = len(s_list)
+    
+    for i in range(0, n, 2*k):
+        # Reverse the first k characters in each 2k segment
+        s_list[i:i+k] = s_list[i:i+k][::-1]
+    
+    return ''.join(s_list)
+
+# Example usage
+s = "abcdefg"
+k = 2
+print(reverse_string(s, k)) 
+
+=========================================================================================================================================
+
+
+Question6:
+
+def can_shift(s, goal):
+    if len(s) != len(goal):
+        return False
+    
+    for i in range(len(s)):
+        shifted_s = s[i:] + s[:i]
+        if shifted_s == goal:
+            return True
+    
+    return False
+
+# Example usage
+s = "abcde"
+goal = "cdeab"
+print(can_shift(s, goal))
+
+=========================================================================================================================================
+
+Question7:
+
+def backspace_compare(s, t):
+    def process_string(string):
+        stack = []
+        for char in string:
+            if char != '#':
+                stack.append(char)
+            elif stack:
+                stack.pop()
+        return ''.join(stack)
+
+    return process_string(s) == process_string(t)
+
+# Example usage
+s = "ab#c"
+t = "ad#c"
+print(backspace_compare(s, t))
+
+=========================================================================================================================================
+
+Question8:
+
+=========================================================================================================================================
