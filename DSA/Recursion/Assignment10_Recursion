@@ -1,1 +1,145 @@
 
+Implementation in Python
+
+Question1:
+
+
+def is_power_of_three(n):
+    # Base cases
+    if n == 1:
+        return True
+    if n < 1 or n % 3 != 0:
+        return False
+    
+    # Recursive case: divide n by 3 and check if the result is a power of three
+    return is_power_of_three(n // 3)
+
+# Example usage
+n = 27
+result = is_power_of_three(n)
+print(result)
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Question2:
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+Question3:
+
+def print_subsets(set_string, subset="", index=0):
+    if index == len(set_string):
+        print(subset)
+        return
+
+    # Include the current character
+    print_subsets(set_string, subset + set_string[index], index + 1)
+
+    # Exclude the current character
+    print_subsets(set_string, subset, index + 1)
+
+# Example usage
+set_string = "abc"
+print_subsets(set_string)
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Question4:
+
+
+def calculate_length(string):
+    # Base case: an empty string has length 0
+    if string == "":
+        return 0
+    
+    # Recursive case: remove the first character and recursively calculate the length of the remaining string
+    return 1 + calculate_length(string[1:])
+
+# Example usage
+string = "abcd"
+length = calculate_length(string)
+print(length)
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Question5:
+
+def count_contiguous_substrings(s):
+    count = 0
+    n = len(s)
+    
+    # Base case: if the length of the string is less than 2, return 0
+    if n < 2:
+        return count
+    
+    # Recursive case: check all possible substrings
+    for i in range(n):
+        for j in range(i+1, n+1):
+            if s[i] == s[j-1]:
+                count += 1
+    
+    # Recursively call the function on the substring excluding the first character
+    count += count_contiguous_substrings(s[1:])
+    
+    return count
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Question6:
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Question7:
+
+def permutations(s):
+    # Base case: if the length of the string is 1 or less, return the string itself
+    if len(s) <= 1:
+        return [s]
+    
+    result = []  # List to store the permutations
+    
+    for i in range(len(s)):
+        # Extract the current character
+        current_char = s[i]
+        
+        # Generate all permutations of the remaining characters
+        remaining_chars = s[:i] + s[i+1:]
+        remaining_permutations = permutations(remaining_chars)
+        
+        # Append the current character to each permutation of the remaining characters
+        for perm in remaining_permutations:
+            result.append(current_char + perm)
+    
+    return result
+
+# Example usage
+str = "abb"
+perms = permutations(str)
+for perm in perms:
+    print(perm)
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Question8:
+
+def canAttendMeetings(intervals):
+    intervals.sort(key=lambda x: x[0])  # Sort intervals based on start time
+
+    for i in range(1, len(intervals)):
+        if intervals[i][0] < intervals[i-1][1]:
+            return False  # Overlapping intervals found
+
+    return True  # No overlapping intervals found
+
+# Example usage
+intervals = [[0, 30], [5, 10], [15, 20]]
+result = canAttendMeetings(intervals)
+print(result)
+
+
+----------------------------------------------------------------------------------------------------------------------------------
